@@ -49,3 +49,8 @@ export async function getBookData(bookId: string): Promise<BookDocument> {
 export function findAllBooks(){
   return Book.find();
 }
+
+export async function connectToMongooseAndFindAllBooks(){
+  await import("../utils/dbConnect");
+  return Book.find();
+}
