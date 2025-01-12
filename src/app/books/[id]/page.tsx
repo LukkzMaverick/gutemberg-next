@@ -16,7 +16,11 @@ export const metadata: Metadata = {
   title: "Book Details",
 };
 
-export default async function BookPage({ params }: { params: { id: string } }) {
+export default async function BookPage({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
   const { id } = await params;
 
   const book: BookData = await getBookData(id);
@@ -34,7 +38,6 @@ export default async function BookPage({ params }: { params: { id: string } }) {
           {book.content}
         </pre>
       </div>
-
     </div>
   );
 }

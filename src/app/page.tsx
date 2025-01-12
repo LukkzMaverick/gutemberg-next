@@ -3,8 +3,7 @@ import { findAllBooks } from "@/services/bookService";
 import ClientInput from "./ClientInput";
 
 export default async function HomePage() {
-  const books = await findAllBooks();
-
+  const books =  process.env.NEXT_PHASE !== "phase-production-build" ? await findAllBooks() : [];
   const serializedBooks = books.map((book: any) => ({
     id: book.external_id.toString(),
     title: book.metadata.title,
