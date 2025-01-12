@@ -1,9 +1,11 @@
 import Link from "next/link";
-import { connectToMongooseAndFindAllBooks, findAllBooks } from "@/services/bookService";
-import ClientInput from "./ClientInput";
+import { findAllBooks } from "@/services/bookService";
+import BookForm from "./BookForm";
+
+export const dynamic = "force-dynamic"
 
 export default async function HomePage() {
-  const books = process.env.NEXT_PHASE !== "phase-production-build" ? await findAllBooks() : await connectToMongooseAndFindAllBooks();
+  const books = await findAllBooks();
   const serializedBooks = books.map((book: any) => ({
     id: book.external_id.toString(),
     title: book.metadata.title,
@@ -12,7 +14,7 @@ export default async function HomePage() {
   return (
     <div className="container mx-auto py-8">
       <h1 className="text-3xl font-bold text-black mb-6">Project Gutenberg Explorer</h1>
-      <ClientInput />
+      <BookForm />
 
       <div className="mt-8">
         <h2 className="text-2xl font-semibold text-black mb-4">Books You've Accessed</h2>

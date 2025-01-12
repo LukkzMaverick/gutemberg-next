@@ -1,3 +1,5 @@
+'use server'
+
 import { Book, Metadata, BookDocument } from "../models/Book";
 import * as cheerio from 'cheerio';
 
@@ -10,28 +12,21 @@ async function fetchBookFromGutenberg(bookId: string): Promise<Omit<BookDocument
     fetch(metadataUrl),
   ]);
 
-  //console.log(contentResponse);
-  //console.log(metadataResponse);
-
-  console.log(contentResponse)
-
   if (!contentResponse.ok || !metadataResponse.ok) {
     throw new Error("Failed to fetch book data");
   }
 
   const [content, metadataHtml] = await Promise.all([contentResponse.text(), metadataResponse.text()])
 
-  const metadata: Metadata = extractMetadata(metadataHtml);
+  const metadata: Metadata = await extractMetadata(metadataHtml);
 
   return { external_id: Number(bookId), content, metadata } as BookDocument;
 }
 
-function extractMetadata(html: string): Metadata {
+async function extractMetadata(html: string): Promise<Metadata> {
   const $ = cheerio.load(html);
   const title = $('td[itemprop="headline"]').text().trim();
   const author = $('a[itemprop="creator"]').text().trim();
-  console.log(title)
-  console.log(author)
   return { title, author };
 }
 
@@ -46,7 +41,7 @@ export async function getBookData(bookId: string): Promise<BookDocument> {
   return book;
 }
 
-export function findAllBooks(){
+export async function findAllBooks(){
   return Book.find();
 }
 

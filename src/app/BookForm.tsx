@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
-export default function ClientInput() {
+export default function BookForm() {
   const [bookId, setBookId] = useState("");
   const router = useRouter();
 
