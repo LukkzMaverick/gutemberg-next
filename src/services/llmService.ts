@@ -13,7 +13,7 @@ export async function getChatCompletion(prompt: string): Promise<any> {
   const normalizedPrompt = prompt.trim().replace(/\s+/g, ' ');
 
   const trimmedPrompt = normalizedPrompt.slice(0, MAX_CONTENT_LENGTH);
-  console.log(trimmedPrompt)
+
   try {
     const response = await fetch(url, {
       method: "POST",
