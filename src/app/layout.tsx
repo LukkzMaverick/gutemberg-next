@@ -20,14 +20,6 @@ export default function RootLayout({
               <Link href="/" passHref>
                 <div className="text-xl font-bold text-gray-800">Gutenberg Explorer</div>
               </Link>
-              <ul className="flex space-x-4">
-                <li>
-                  <Link href="/" className="text-gray-700 hover:text-gray-900">Home</Link>
-                </li>
-                <li>
-                  <Link href="/books" className="text-gray-700 hover:text-gray-900">Books</Link>
-                </li>
-              </ul>
             </nav>
           </header>
 

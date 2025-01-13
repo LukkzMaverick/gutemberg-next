@@ -33,13 +33,13 @@ export async function getChatCompletion(prompt: string): Promise<any> {
     });
 
     if (!response.ok) {
-      throw new Error(`Erro na requisição: ${response.status} - ${response.statusText}`);
+      throw new Error(`Error: ${response.status} - ${response.statusText}`);
     }
 
     const data = await response.json();
     return data;
   } catch (error: any) {
-    console.error("Erro ao chamar a API da Groq:", error.message);
-    throw new Error("Falha ao obter a resposta da API.");
+    console.error("Error when calling GROQ API:", error.message);
+    throw new Error("Error when calling GROQ API");
   }
 }
